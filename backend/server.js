@@ -10,8 +10,9 @@ const app = express()
 app.use(express.json())
 
 const authRouter = require('./routes/auth')
-
+const clientsRouter = require('./routes/clients')
 app.use('/api/auth',authRouter);
+app.use('/api/clients',clientsRouter)
 
 const port = process.env.PORT
 
