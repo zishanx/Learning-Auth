@@ -16,15 +16,28 @@ router.post('/', protect, async (req, res) => {
 })
 
 router.get('/:id', protect, async (req, res) => {
-    res.send("hello")
+    const id = req.params.id
+    const client = await Client.findById(id);
+
+    if(!client){
+      return  res.status(404).send("Client not found")
+    }else {
+        res.json(client)
+    }
+
 })
 
 router.put('/:id', protect, async (req, res) => {
-    res.send("hello")
+    const update = req.body;
+    const id = req.params.id
+    const client = await Client.findByIdAndUpdate(id,update,{new:true})
+    res.json(client)
 })
 
 router.delete('/:id', protect, async (req, res) => {
-    res.send("hello")
+    const id = req.params.id;
+    await Client.findByIdAndDelete(id);
+    res.json("Client Deleted")
 })
 
 module.exports = router;
